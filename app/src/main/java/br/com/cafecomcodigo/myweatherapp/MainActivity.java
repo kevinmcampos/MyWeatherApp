@@ -1,7 +1,6 @@
 package br.com.cafecomcodigo.myweatherapp;
 
 import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,9 +8,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -73,12 +72,21 @@ public class MainActivity extends ActionBarActivity {
                     "Thurs - Asteroids - 75/65",
                     "Fri - Heavy Rain - 65/56",
                     "Sat - HELP TRAPPED IN WEATHERSTATION - 60/51",
-                    "Sun - Sunny - 80/68",
-                    ""
+                    "Sun - Sunny - 80/68"
             };
 
-            List<String> weekForecast = new ArrayList<String>(
+            List<String> weekForecast = new ArrayList<>(
                     Arrays.asList(forecastArray));
+
+            ArrayAdapter<String> forecastAdapter = new ArrayAdapter<>(
+                    getActivity(),
+                    R.layout.list_item_forecast,
+                    R.id.list_item_forecast_textview,
+                    weekForecast);
+
+            ListView listView = (ListView) rootView.findViewById(R.id.listview_forecast);
+
+            listView.setAdapter(forecastAdapter);
 
             return rootView;
         }
