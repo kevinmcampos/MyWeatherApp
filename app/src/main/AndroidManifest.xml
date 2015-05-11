@@ -34,6 +34,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="br.com.cafecomcodigo.myweatherapp.MainActivity" />
         </activity>
+
+        <provider
+            android:name=".data.WeatherProvider"
+            android:authorities="br.com.cafecomcodigo.myweatherapp" />
     </application>
 
 </manifest>
