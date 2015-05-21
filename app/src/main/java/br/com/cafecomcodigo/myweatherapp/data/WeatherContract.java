@@ -20,6 +20,7 @@ public class WeatherContract {
     // Use CONTENT_AUTHORITY to create the base of all URI's which apps will use to contact
     // the content provider.
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
+    // content://br.com.cafecomcodigo.myweatherapp
 
     // Possible paths (appended to base content URI for possible URI's)
     // For instance, content://com.example.android.sunshine.app/weather/ is a valid path for
@@ -57,20 +58,22 @@ public class WeatherContract {
 
 
 
-
-
-
-
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_LOCATION).build();
+        // content://br.com.cafecomcodigo.myweatherapp/location
+
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+        // vnd.android.cursor.dir/br.com.cafecomcodigo.myweatherapp/location
+
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_LOCATION;
+        // vnd.android.cursor.item/br.com.cafecomcodigo.myweatherapp/location
 
         public static Uri buildLocationUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+            // content://br.com.cafecomcodigo.myweatherapp/location/#
         }
     }
 
@@ -116,21 +119,23 @@ public class WeatherContract {
 
         public static final Uri CONTENT_URI =
                 BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEATHER).build();
+        // content://br.com.cafecomcodigo.myweatherapp/weather
 
         public static final String CONTENT_TYPE =
                 ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_WEATHER;
+        // vnd.android.cursor.dir/br.com.cafecomcodigo.myweatherapp/weather
         public static final String CONTENT_ITEM_TYPE =
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_WEATHER;
+        // vnd.android.cursor.item/br.com.cafecomcodigo.myweatherapp/weather
 
         public static Uri buildWeatherUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
+            // content://br.com.cafecomcodigo.myweatherapp/weather/#
         }
 
-        /*
-            Student: Fill in this buildWeatherLocation function
-         */
         public static Uri buildWeatherLocation(String locationSetting) {
             return CONTENT_URI.buildUpon().appendPath(locationSetting).build();
+            // content://br.com.cafecomcodigo.myweatherapp/weather/*
         }
 
         public static Uri buildWeatherLocationWithStartDate(
@@ -138,11 +143,14 @@ public class WeatherContract {
             long normalizedDate = normalizeDate(startDate);
             return CONTENT_URI.buildUpon().appendPath(locationSetting)
                     .appendQueryParameter(COLUMN_DATE, Long.toString(normalizedDate)).build();
+            // content://br.com.cafecomcodigo.myweatherapp/weather/locationSetting?COLUMN_DATE=normalizedDate
+            // content://br.com.cafecomcodigo.myweatherapp/weather/*?DATE=#
         }
 
         public static Uri buildWeatherLocationWithDate(String locationSetting, long date) {
             return CONTENT_URI.buildUpon().appendPath(locationSetting)
                     .appendPath(Long.toString(normalizeDate(date))).build();
+            // content://br.com.cafecomcodigo.myweatherapp/weather/*/#
         }
 
         public static String getLocationSettingFromUri(Uri uri) {
