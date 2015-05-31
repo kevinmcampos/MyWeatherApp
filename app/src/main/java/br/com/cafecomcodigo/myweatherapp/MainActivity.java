@@ -11,48 +11,30 @@ import android.view.MenuItem;
 
 public class MainActivity extends ActionBarActivity {
 
+    private static final String DETAILFRAGMENT_TAG = "DFTAG";
+
     final String LOG_TAG = MainActivity.class.getSimpleName();
+    boolean mTwoPane;
+    private String mLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mLocation = Utility.getPreferredLocation(this);
+
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new ForecastFragment())
-                    .commit();
+
+        if (findViewById(R.id.weather_detail_container) == null) {
+            mTwoPane = false;
+        } else {
+            mTwoPane = true;
+
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.weather_detail_container, new DetailFragment())
+                        .commit();
+            }
         }
-        Log.v(LOG_TAG, "onCreate");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.v(LOG_TAG, "onPause");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.v(LOG_TAG, "onStop");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.v(LOG_TAG, "onResume");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.v(LOG_TAG, "onStart");
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        Log.v(LOG_TAG, "onDestroy");
     }
 
     @Override
@@ -81,6 +63,19 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String location = Utility.getPreferredLocation( this );
+        if (location != null && !location.equals(mLocation)) {
+            ForecastFragment ff = (ForecastFragment)getSupportFragmentManager().findFragmentById(R.id.fragment_forecast);
+            if ( null != ff ) {
+                ff.onLocationChanged();
+            }
+            mLocation = location;
+        }
     }
 
     private void openPreferredLocationInMap() {
