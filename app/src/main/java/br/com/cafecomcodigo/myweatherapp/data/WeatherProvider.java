@@ -282,11 +282,6 @@ public class WeatherProvider extends ContentProvider {
         super.shutdown();
     }
 
-
-
-
-
-
     private static final SQLiteQueryBuilder sWeatherByLocationSettingQueryBuilder;
 
     static{

@@ -25,34 +25,31 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     ForecastAdapter mForecastAdapter;
 
     private static final String[] FORECAST_COLUMNS = {
-            // In this case the id needs to be fully qualified with a table name, since
-            // the content provider joins the location & weather tables in the background
-            // (both have an _id column)
-            // On the one hand, that's annoying.  On the other, you can search the weather table
-            // using the location set by the user, which is only in the Location table.
-            // So the convenience is worth it.
             WeatherContract.WeatherEntry.TABLE_NAME + "." + WeatherContract.WeatherEntry._ID,
             WeatherContract.WeatherEntry.COLUMN_DATE,
             WeatherContract.WeatherEntry.COLUMN_SHORT_DESC,
             WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
             WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,
-            WeatherContract.LocationEntry.COLUMN_LOCATION_SETTING,
+            WeatherContract.WeatherEntry.COLUMN_HUMIDITY,
+            WeatherContract.WeatherEntry.COLUMN_PRESSURE,
+            WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,
+            WeatherContract.WeatherEntry.COLUMN_DEGREES,
             WeatherContract.WeatherEntry.COLUMN_WEATHER_ID,
-            WeatherContract.LocationEntry.COLUMN_COORD_LAT,
-            WeatherContract.LocationEntry.COLUMN_COORD_LONG
     };
 
     // These indices are tied to FORECAST_COLUMNS.  If FORECAST_COLUMNS changes, these
     // must change.
+    // TODO: Something is wrong, Cursor are not following the projection
     static final int COL_WEATHER_ID = 0;
-    static final int COL_WEATHER_DATE = 2;
-    static final int COL_WEATHER_DESC = 3;
-    static final int COL_WEATHER_MAX_TEMP = 6;
-    static final int COL_WEATHER_MIN_TEMP = 5;
-    static final int COL_LOCATION_SETTING = 5;
-    static final int COL_WEATHER_CONDITION_ID = 6;
-    static final int COL_COORD_LAT = 7;
-    static final int COL_COORD_LONG = 8;
+    static final int COL_WEATHER_DATE = 2; // WRONG!
+    static final int COL_WEATHER_DESC = 3; // WRONG!
+    static final int COL_WEATHER_MAX_TEMP = 6; // WRONG!
+    static final int COL_WEATHER_MIN_TEMP = 5; // WRONG!
+    static final int COL_WEATHER_HUMIDITY = 5;
+    static final int COL_WEATHER_PRESSURE = 6;
+    static final int COL_WEATHER_WIND_SPEED = 7;
+    static final int COL_WEATHER_DEGREES = 8;
+    static final int COL_WEATHER_CONDITION_ID = 4; // WRONG!
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
